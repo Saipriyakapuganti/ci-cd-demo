@@ -14,9 +14,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Decode SSH Key
+      - name: Setup SSH Key
         run: |
-          echo "${{ secrets.EC2_SSH_KEY }}" | base64 -d > key.pem
+          printf "%s" "${{ secrets.EC2_SSH_KEY }}" > key.pem
           chmod 600 key.pem
 
       - name: Deploy via SSH
