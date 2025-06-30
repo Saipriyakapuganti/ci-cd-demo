@@ -14,17 +14,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup SSH Key
-        run: |
-          echo "${{ secrets.EC2_SSH_KEY_B64 }}" | base64 -d > key.pem
-          chmod 600 key.pem
-
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
-          key_path: key.pem
+          key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd ~/ci-cd-demo || git clone https://github.com/Saipriyakapuganti/ci-cd-demo.git && cd ci-cd-demo
             git pull origin main
