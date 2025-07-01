@@ -11,7 +11,7 @@ services:
     build:
       context: ./React-front
       args:
-        - VITE_API_URL=http://35.170.248.169:5000
+        VITE_API_URL: "http://35.170.248.169:5000"
     ports:
       - "80:80"
     container_name: react-frontend
