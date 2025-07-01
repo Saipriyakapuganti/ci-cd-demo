@@ -6,7 +6,7 @@ function App() {
 
   const handleClick = async () => {
     try {
-      const res = await fetch('http://35.170.248.169:5000/api/message');
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/message`);
       const data = await res.json();
       setMessage(data.message);
     } catch (err) {
