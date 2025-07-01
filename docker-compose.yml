@@ -8,12 +8,13 @@ services:
     container_name: node-backend
 
   frontend:
-    build: ./React-front
+    build:
+      context: ./React-front
+      args:
+        - VITE_API_URL=http://35.170.248.169:5000
     ports:
       - "80:80"
     container_name: react-frontend
     depends_on:
       - backend
-    environment:
-      - VITE_API_URL=http://backend:5000
 

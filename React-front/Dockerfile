@@ -1,21 +1,24 @@
-# Base image
+# Base image for building
 FROM node:18 as build
 
-# Set working directory
 WORKDIR /app
 
-# Copy package files and install deps
+# Copy dependencies and install
 COPY package*.json ./
 RUN npm install
 
-# Copy all source code and build
+# Accept build-time API URL
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
+# Copy source and build
 COPY . .
 RUN npm run build
 
-# Serve using Nginx
+# Serve with Nginx
 FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Expose port
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
+
